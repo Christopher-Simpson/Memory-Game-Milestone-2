@@ -13,20 +13,27 @@ document.addEventListener('DOMContentLoaded', () => {
     const game = document.querySelector('#game')
     const cardArray = cardObj.concat(cardObj)
 
-    //randomize card display
+    //randomize card display(Not my code)
     cardArray.sort(() => 0.5 - Math.random())
 
     //loop over cardArray and deploy to DOM
-    function createGame() {
-        cardArray.forEach((item) => {
+    function drawCards() {
+        for (i = 0; i < cardArray.length; i++) {
             var card = document.createElement('div')
-            card.classList.add('card')
-            card.setAttribute('data-name', `${item.name}`)
-            card.style.backgroundImage = `url(${item.img})`
+            var cardFace = document.createElement('img')
+            var cardBack = document.createElement('img')
+            cardFace.setAttribute('src', cardArray[i].img)
+            cardFace.setAttribute('name', cardArray[i].name)
+            cardFace.setAttribute('card-id', i)
+            cardFace.classList.add('cardshow')
+            cardBack.setAttribute('src', 'assets/images/ball.png')
+            cardBack.classList.add('cardhide')
+            card.appendChild(cardFace)
+            card.appendChild(cardBack)
             game.appendChild(card)
-            })
         }
-    
+    }
 
-    createGame()
+    drawCards()
 })
+

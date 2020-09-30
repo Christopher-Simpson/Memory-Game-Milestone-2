@@ -28,14 +28,14 @@ document.addEventListener('DOMContentLoaded', () => {
             //create images to be placed in card divs
             var cardFace = document.createElement('img')
             var cardBack = document.createElement('img')
-            //pull img and name objects from cardArray and apply to cardFace. Apply extra data to use for matching and switcheable classes for selecting
+            //set up frontside of card. Pull img and name objects from cardArray, apply data attributes and css classes
             cardFace.setAttribute('src', cardArray[i].img)
             cardFace.setAttribute('name', cardArray[i].name)
             cardFace.setAttribute('card-id', i)
-            cardFace.classList.add('cardFace', 'cardhide')
-            //set cardBack image as default
+            cardFace.classList.add('frontside', 'face', 'hide')
+            //set up backside of card
             cardBack.setAttribute('src', 'assets/images/ball.png')
-            cardBack.classList.add('cardBack', 'cardshow')
+            cardBack.classList.add('backside', 'face')
             //apply images to card divs
             cardFaceDiv.appendChild(cardFace)
             cardBackDiv.appendChild(cardBack)
@@ -43,10 +43,17 @@ document.addEventListener('DOMContentLoaded', () => {
             card.appendChild(cardFaceDiv)
             card.appendChild(cardBackDiv)
             game.appendChild(card)
+            //add event listener to card
+            card.addEventListener('click', flipCard, false)
         }
     }
 
-    
+    //Apply animations and selection limit to clicked cards
+    function flipCard(event) {
+        //select card div
+        let selectedCard = event.currentTarget
+        console.log(selectedCard)
+    }
 
     drawCards()
 })

@@ -1,3 +1,4 @@
+/*--Game Layout__*/
 #container {
     height: 650px;
     width: 500px;
@@ -13,25 +14,34 @@
     border: 1px solid blue;
 }
 
-.cardshow {
-  margin: 5px;
-  background-color: #6589f9;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center center;
-  height: 150px;
-  width: 150px;
+/*--Card Styles--*/
+.card {
+    margin: 5px;
+    position: relative;
+    background-color: #00000000;
+    border-radius: 5px;
+    height: 150px;
+    width: 150px;
 }
 
-.cardhide {
-  margin: 5px;
-  background-color: #6589f9;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center center;
-  height: 150px;
-  width: 150px;
-  display: none;
+.face {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    backface-visibility: hidden;
+    transition: transform 50ms ease-in-out;
+}
+
+.hide {
+    visibility: hidden;
+}
+
+
+.backside:hover {
+    transform: scale(1.1);
+    transition: transform 50ms ease-in-out;
 }
 
 

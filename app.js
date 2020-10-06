@@ -25,17 +25,18 @@ document.addEventListener('DOMContentLoaded', () => {
             var cardFaceDiv = document.createElement('div')
             var cardBackDiv = document.createElement('div')
             card.classList.add('card')
+            cardFaceDiv.classList.add('face')
+            cardBackDiv.classList.add('back')
             //create images to be placed in card divs
             var cardFace = document.createElement('img')
             var cardBack = document.createElement('img')
             //set up frontside of card. Pull img and name objects from cardArray, apply data attributes and css classes
             cardFace.setAttribute('src', cardArray[i].img)
             cardFace.setAttribute('name', cardArray[i].name)
-            cardFace.setAttribute('card-id', i)
-            cardFace.classList.add('frontside', 'face', 'hide')
+            cardFace.classList.add('cardimage', 'frontside')
             //set up backside of card
             cardBack.setAttribute('src', 'assets/images/ball.png')
-            cardBack.classList.add('backside', 'face')
+            cardBack.classList.add('cardimage', 'backside')
             //apply images to card divs
             cardFaceDiv.appendChild(cardFace)
             cardBackDiv.appendChild(cardBack)
@@ -49,9 +50,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     //Apply animations and selection limit to clicked cards
-    function flipCard(event) {
+     function flipCard(event) {
         //select card div
         let selectedCard = event.currentTarget
+        selectedCard.classList.add('flipover')
         console.log(selectedCard)
     }
 

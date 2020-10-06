@@ -15,36 +15,53 @@
 }
 
 /*--Card Styles--*/
-.card {
-    margin: 5px;
-    position: relative;
-    background-color: #00000000;
-    border-radius: 5px;
+.card,
+.back,
+.front {
     height: 150px;
     width: 150px;
 }
 
-.face {
+
+
+.card {
+    margin: 5px;
+    position: relative;
+    background-color: #00000000;
+    transition: all 0.4s linear;
+    transform-style: preserve-3d;
+}
+
+.cardimage {
     position: absolute;
     height: 100%;
     width: 100%;
     display: flex;
     justify-content: center;
     backface-visibility: hidden;
-    transition: transform 50ms ease-in-out;
+    transition: transform 500ms ease-in-out;
 }
 
-.hide {
-    visibility: hidden;
+.frontside {
+    transform: rotateY(-180deg);
 }
-
 
 .backside:hover {
     transform: scale(1.1);
     transition: transform 50ms ease-in-out;
+    backface-visibility: hidden;
 }
 
+/*--card flip --*/
 
-.selected {
-    border: 1px solid blue;
+.flipover {
+    transform: rotateY(180deg);
+}
+
+.flipback {
+    transform: rotateY(-180deg);
+}
+
+.matchedcard {
+    visibility: hidden;
 }

@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     //global variables
     const game = document.querySelector('#game')
     const cardArray = cardObj.concat(cardObj)
+    var selectedArray = []
 
     //randomize card display(Not my code)
     cardArray.sort(() => 0.5 - Math.random())
@@ -48,13 +49,23 @@ document.addEventListener('DOMContentLoaded', () => {
             card.addEventListener('click', flipCard, false)
         }
     }
-
+   
     //Apply animations and selection limit to clicked cards
      function flipCard(event) {
-        //select card div
-        let selectedCard = event.currentTarget
-        selectedCard.classList.add('flipover')
-        console.log(selectedCard)
+        //select card
+        let pickedCards = 0
+        let selectedDiv = event.currentTarget
+        let selectedCard = selectedDiv.firstChild
+        let thisCard = selectedCard.firstChild
+        let thisCardName = thisCard.getAttribute('name')
+        //send name attribute to selectedArray 
+        selectedArray.push(thisCardName)
+        //animate flipping on selectedDiv
+        selectedDiv.classList.add('flipover')
+        //condition on when to compare cards
+        if (selectedArray.length === 2) {
+            setTimeout(compare, 500)
+        }
     }
 
     drawCards()

@@ -82,9 +82,14 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('this is secondGuess', secondGuess);
         console.log('this is firstCard', firstCard);
         console.log('this is secondCard', secondCard);
-        if (firstGuess === secondGuess) {
+        if (firstGuess.getAttribute('name') === secondGuess.getAttribute('name')) {
             firstCard.classList.add('matchedcard');
             secondCard.classList.add('matchedcard');
+        } else {
+            firstCard.classList.remove('flipover')
+            secondCard.classList.remove('flipover')
+            firstCard.classList.add('flipback')
+            secondCard.classList.add('flipback')
         }
     }
 

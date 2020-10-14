@@ -34,10 +34,10 @@ document.addEventListener('DOMContentLoaded', () => {
             //set up frontside of card. Pull img and name objects from cardArray, apply data attributes and css classes
             cardFace.setAttribute('src', cardArray[i].img)
             cardFace.setAttribute('name', cardArray[i].name)
-            cardFace.classList.add('cardimage', 'backside')
+            cardFace.classList.add('cardimage', 'frontside')
             //set up backside of card
             cardBack.setAttribute('src', 'assets/images/ball.png')
-            cardBack.classList.add('cardimage', 'frontside')
+            cardBack.classList.add('cardimage', 'backside')
             //apply images to card divs
             cardFaceDiv.appendChild(cardFace)
             cardBackDiv.appendChild(cardBack)
@@ -53,38 +53,42 @@ document.addEventListener('DOMContentLoaded', () => {
     //Apply animations and selection limit to clicked cards
      function flipCard(event) {
         //select card divs on click
-        let selectedDiv = event.currentTarget
+        let selectedDiv = event.currentTarget;
         //select the div with the frontside image element
-        let selectedCard = selectedDiv.firstChild
+        let selectedCard = selectedDiv.firstChild;
         //select the image within that div
-        let thisCard = selectedCard.firstChild
+        let thisCard = selectedCard.firstChild;
         //send image to be stored into a new array
-        selectedArray.push(thisCard)
+        selectedArray.push(thisCard);
         //animate flipping on selectedDiv
-        selectedDiv.classList.add('flipover')
-        //console.log('the image asset is:', thisCard)
-        //console.log('the array is:', selectedArray)
+        selectedDiv.classList.add('flipover');
+        console.log('the image asset is:', thisCard);
+        console.log('the array is:', selectedArray);
         //condition on when to compare cards
-        if (selectedArray.length === 2) {
-            compare()
+        console.log(`SELECTEDARRAY: ${selectedArray.length}`);
+        if (selectedArray.length == 2) {
+            compare();
         }
     }
 
     function compare() {
-        let firstGuess = selectedArray[0]
-        let firstGuessDiv = firstGuess.parentElement
-        let firstCard = firstGuessDiv.parentElement
-        let secondGuess = selectedArray[1]
-        let secondGuessDiv = secondGuess.parentElement
-        let secondCard = secondGuessDiv.parentElement
-        console.log('this is firstGuess', firstGuess)
-        console.log('this is secondGuess', secondGuess)
-        console.log('this is firstCard', firstCard)
-        console.log('this is secondCard', secondCard)
-        
+        let firstGuess = selectedArray[0];
+        let firstGuessDiv = firstGuess.parentElement;
+        let firstCard = firstGuessDiv.parentElement;
+        let secondGuess = selectedArray[1];
+        let secondGuessDiv = secondGuess.parentElement;
+        let secondCard = secondGuessDiv.parentElement;
+        console.log('this is firstGuess', firstGuess);
+        console.log('this is secondGuess', secondGuess);
+        console.log('this is firstCard', firstCard);
+        console.log('this is secondCard', secondCard);
+        if (firstGuess === secondGuess) {
+            firstCard.classList.add('matchedcard');
+            secondCard.classList.add('matchedcard');
+        }
     }
 
-    console.log('this is selectedArray', selectedArray)
+    
 
     drawCards()
 })

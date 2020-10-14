@@ -34,10 +34,10 @@ document.addEventListener('DOMContentLoaded', () => {
             //set up frontside of card. Pull img and name objects from cardArray, apply data attributes and css classes
             cardFace.setAttribute('src', cardArray[i].img)
             cardFace.setAttribute('name', cardArray[i].name)
-            cardFace.classList.add('cardimage', 'frontside')
+            cardFace.classList.add('cardimage', 'backside')
             //set up backside of card
             cardBack.setAttribute('src', 'assets/images/ball.png')
-            cardBack.classList.add('cardimage', 'backside')
+            cardBack.classList.add('cardimage', 'frontside')
             //apply images to card divs
             cardFaceDiv.appendChild(cardFace)
             cardBackDiv.appendChild(cardBack)
@@ -45,28 +45,46 @@ document.addEventListener('DOMContentLoaded', () => {
             card.appendChild(cardFaceDiv)
             card.appendChild(cardBackDiv)
             game.appendChild(card)
-            //add event listener to card
+            //add event listener to cards
             card.addEventListener('click', flipCard, false)
         }
     }
    
     //Apply animations and selection limit to clicked cards
      function flipCard(event) {
-        //select card
-        let pickedCards = 0
+        //select card divs on click
         let selectedDiv = event.currentTarget
+        //select the div with the frontside image element
         let selectedCard = selectedDiv.firstChild
+        //select the image within that div
         let thisCard = selectedCard.firstChild
-        let thisCardName = thisCard.getAttribute('name')
-        //send name attribute to selectedArray 
-        selectedArray.push(thisCardName)
+        //send image to be stored into a new array
+        selectedArray.push(thisCard)
         //animate flipping on selectedDiv
         selectedDiv.classList.add('flipover')
+        //console.log('the image asset is:', thisCard)
+        //console.log('the array is:', selectedArray)
         //condition on when to compare cards
         if (selectedArray.length === 2) {
-            setTimeout(compare, 500)
+            compare()
         }
     }
+
+    function compare() {
+        let firstGuess = selectedArray[0]
+        let firstGuessDiv = firstGuess.parentElement
+        let firstCard = firstGuessDiv.parentElement
+        let secondGuess = selectedArray[1]
+        let secondGuessDiv = secondGuess.parentElement
+        let secondCard = secondGuessDiv.parentElement
+        console.log('this is firstGuess', firstGuess)
+        console.log('this is secondGuess', secondGuess)
+        console.log('this is firstCard', firstCard)
+        console.log('this is secondCard', secondCard)
+        
+    }
+
+    console.log('this is selectedArray', selectedArray)
 
     drawCards()
 })

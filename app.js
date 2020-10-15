@@ -7,47 +7,48 @@ document.addEventListener('DOMContentLoaded', () => {
         {name: 'japan', img: 'assets/images/japan.png'},
         {name: 'newzealand', img: 'assets/images/newzealand.png'},
         {name: 'southafrica', img: 'assets/images/southafrica.png'}
-    ]
+    ];
 
     //global variables
-    const game = document.querySelector('#game')
-    const cardArray = cardObj.concat(cardObj)
-    var selectedArray = []
+    const game = document.querySelector('#game');
+    const cardArray = cardObj.concat(cardObj);
+    var selectedArray = [];
+    var removedCards = [];
 
     //randomize card display(Not my code)
-    cardArray.sort(() => 0.5 - Math.random())
+    cardArray.sort(() => 0.5 - Math.random());
 
     //loop over cardArray and deploy to DOM
     function drawCards() {
         //loop over cardArray
         for (i = 0; i < cardArray.length; i++) {
             //create card divs
-            var card = document.createElement('div')
-            var cardFaceDiv = document.createElement('div')
-            var cardBackDiv = document.createElement('div')
-            card.classList.add('card')
-            cardFaceDiv.classList.add('face')
-            cardBackDiv.classList.add('back')
+            var card = document.createElement('div');
+            var cardFaceDiv = document.createElement('div');
+            var cardBackDiv = document.createElement('div');
+            card.classList.add('card');
+            cardFaceDiv.classList.add('face');
+            cardBackDiv.classList.add('back');
             //create images to be placed in card divs
-            var cardFace = document.createElement('img')
-            var cardBack = document.createElement('img')
+            var cardFace = document.createElement('img');
+            var cardBack = document.createElement('img');
             //set up frontside of card. Pull img and name objects from cardArray, apply data attributes and css classes
-            cardFace.setAttribute('src', cardArray[i].img)
-            cardFace.setAttribute('name', cardArray[i].name)
-            cardFace.setAttribute('card-id', i)
-            cardFace.classList.add('cardimage', 'frontside')
+            cardFace.setAttribute('src', cardArray[i].img);
+            cardFace.setAttribute('name', cardArray[i].name);
+            cardFace.setAttribute('card-id', i);
+            cardFace.classList.add('cardimage', 'frontside');
             //set up backside of card
-            cardBack.setAttribute('src', 'assets/images/ball.png')
-            cardBack.classList.add('cardimage', 'backside')
+            cardBack.setAttribute('src', 'assets/images/ball.png');
+            cardBack.classList.add('cardimage', 'backside');
             //apply images to card divs
-            cardFaceDiv.appendChild(cardFace)
-            cardBackDiv.appendChild(cardBack)
+            cardFaceDiv.appendChild(cardFace);
+            cardBackDiv.appendChild(cardBack);
             //apply card divs to game div
-            card.appendChild(cardFaceDiv)
-            card.appendChild(cardBackDiv)
-            game.appendChild(card)
+            card.appendChild(cardFaceDiv);
+            card.appendChild(cardBackDiv);
+            game.appendChild(card);
             //add event listener to cards
-            card.addEventListener('click', flipCard, false)
+            card.addEventListener('click', flipCard, false);
         }
     }
    
@@ -68,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
         //condition on when to compare cards
         console.log(`SELECTEDARRAY: ${selectedArray.length}`);
         if (selectedArray.length === 2) {
-            compare();
+            setTimeout(compare, 1000);
         }
     }
 
@@ -83,18 +84,28 @@ document.addEventListener('DOMContentLoaded', () => {
         //console.log('this is secondGuess', secondGuess);
         //console.log('this is firstCard', firstCard);
         //console.log('this is secondCard', secondCard);
+        //Condition if image name attributes are the same
         if (firstGuess.getAttribute('name') === secondGuess.getAttribute('name')) {
+            //clear cards from the board and reset array 
             firstCard.classList.add('matchedcard');
             secondCard.classList.add('matchedcard');
-            selectedArray = []
+            removedCards.push(selectedArray);
+            selectedArray = [];
+            //Condition if card-id attribute is the same 
         } else if (firstGuess.getAttribute('card-id') === secondGuess.getAttribute('card-id')){
-            selectedArray.splice(1)
+            //remove second input from array 
+            selectedArray.splice(1);
+        } else if (removedCards.length === 12) {
+            alert('You Win');
         } else {
-            firstCard.classList.remove('flipover')
-            secondCard.classList.remove('flipover')
-            selectedArray = []
+            //return cards to original state and clear array
+            firstCard.classList.remove('flipover');
+            secondCard.classList.remove('flipover');
+            selectedArray = [];
         }
     }
+
+    
 
     
 

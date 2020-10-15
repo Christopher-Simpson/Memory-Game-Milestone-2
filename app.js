@@ -34,6 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
             //set up frontside of card. Pull img and name objects from cardArray, apply data attributes and css classes
             cardFace.setAttribute('src', cardArray[i].img)
             cardFace.setAttribute('name', cardArray[i].name)
+            cardFace.setAttribute('card-id', i)
             cardFace.classList.add('cardimage', 'frontside')
             //set up backside of card
             cardBack.setAttribute('src', 'assets/images/ball.png')
@@ -66,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('the array is:', selectedArray);
         //condition on when to compare cards
         console.log(`SELECTEDARRAY: ${selectedArray.length}`);
-        if (selectedArray.length == 2) {
+        if (selectedArray.length === 2) {
             compare();
         }
     }
@@ -78,18 +79,20 @@ document.addEventListener('DOMContentLoaded', () => {
         let secondGuess = selectedArray[1];
         let secondGuessDiv = secondGuess.parentElement;
         let secondCard = secondGuessDiv.parentElement;
-        console.log('this is firstGuess', firstGuess);
-        console.log('this is secondGuess', secondGuess);
-        console.log('this is firstCard', firstCard);
-        console.log('this is secondCard', secondCard);
+        //console.log('this is firstGuess', firstGuess);
+        //console.log('this is secondGuess', secondGuess);
+        //console.log('this is firstCard', firstCard);
+        //console.log('this is secondCard', secondCard);
         if (firstGuess.getAttribute('name') === secondGuess.getAttribute('name')) {
             firstCard.classList.add('matchedcard');
             secondCard.classList.add('matchedcard');
+            selectedArray = []
+        } else if (firstGuess.getAttribute('card-id') === secondGuess.getAttribute('card-id')){
+            selectedArray.splice(1)
         } else {
             firstCard.classList.remove('flipover')
             secondCard.classList.remove('flipover')
-            firstCard.classList.add('flipback')
-            secondCard.classList.add('flipback')
+            selectedArray = []
         }
     }
 

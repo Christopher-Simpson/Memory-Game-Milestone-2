@@ -13,7 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const game = document.querySelector('#game');
     const cardArray = cardObj.concat(cardObj);
     var selectedArray = [];
-    var removedCards = [];
 
     //randomize card display(Not my code)
     cardArray.sort(() => 0.5 - Math.random());
@@ -47,13 +46,14 @@ document.addEventListener('DOMContentLoaded', () => {
             card.appendChild(cardFaceDiv);
             card.appendChild(cardBackDiv);
             game.appendChild(card);
+            
             //add event listener to cards
             card.addEventListener('click', flipCard, false);
         }
     }
    
     //Apply animations and selection limit to clicked cards
-     function flipCard(event) {
+    function flipCard(event) {
         //select card divs on click
         let selectedDiv = event.currentTarget;
         //select the div with the frontside image element
@@ -74,6 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function compare() {
+        //select parent divs of image assets stored in selectedArray
         let firstGuess = selectedArray[0];
         let firstGuessDiv = firstGuess.parentElement;
         let firstCard = firstGuessDiv.parentElement;
@@ -86,19 +87,19 @@ document.addEventListener('DOMContentLoaded', () => {
         //console.log('this is secondCard', secondCard);
         //Condition if image name attributes are the same
         if (firstGuess.getAttribute('name') === secondGuess.getAttribute('name')) {
-            //clear cards from the board and reset array 
+            //clear cards from the board and reset selectedArray 
             firstCard.classList.add('matchedcard');
             secondCard.classList.add('matchedcard');
-            removedCards.push(selectedArray);
             selectedArray = [];
             //Condition if card-id attribute is the same 
         } else if (firstGuess.getAttribute('card-id') === secondGuess.getAttribute('card-id')){
             //remove second input from array 
             selectedArray.splice(1);
-        } else if (removedCards.length === 12) {
-            alert('You Win');
+        } else if (selectedArray.length > 2) {
+            selectedArray.splice(1);
+            return;
         } else {
-            //return cards to original state and clear array
+            //return cards to original state and reset selectedArray
             firstCard.classList.remove('flipover');
             secondCard.classList.remove('flipover');
             selectedArray = [];

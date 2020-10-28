@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const game = document.querySelector('#game');
     const cardArray = cardObj.concat(cardObj);
     var selectedArray = [];
+    var cardCounter = 0;
 
     //randomize card display(Not my code)
     cardArray.sort(() => 0.5 - Math.random());
@@ -34,7 +35,6 @@ document.addEventListener('DOMContentLoaded', () => {
             //set up frontside of card. Pull img and name objects from cardArray, apply data attributes and css classes
             cardFace.setAttribute('src', cardArray[i].img);
             cardFace.setAttribute('name', cardArray[i].name);
-            cardFace.setAttribute('card-id', i);
             cardFace.classList.add('cardimage', 'frontside');
             //set up backside of card
             cardBack.setAttribute('src', 'assets/images/ball.png');
@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             //add event listener to cards
             card.addEventListener('click', flipCard, false);
-        }
+        } 
     }
    
     //Apply animations and selection limit to clicked cards
@@ -60,16 +60,22 @@ document.addEventListener('DOMContentLoaded', () => {
         let selectedCard = selectedDiv.firstChild;
         //select the image within that div
         let thisCard = selectedCard.firstChild;
-        //send image to be stored into a new array
-        selectedArray.push(thisCard);
-        //animate flipping on selectedDiv
-        selectedDiv.classList.add('flipover');
-        console.log('the image asset is:', thisCard);
-        console.log('the array is:', selectedArray);
+        //console.log('the image asset is:', thisCard);
+        //console.log('the array is:', selectedArray);
+
         //condition on when to compare cards
-        console.log(`SELECTEDARRAY: ${selectedArray.length}`);
-        if (selectedArray.length === 2) {
-            setTimeout(compare, 1000);
+        //iterate cardCounter, push image into selectedArray and animate flipping
+        if (cardCounter < 2 && selectedArray.length < 2) {
+            cardCounter++;
+            selectedArray.push(thisCard);
+            selectedDiv.classList.add('flipover');
+            //run compare function when player has clicked 2 cards
+            if (cardCounter === 2 && selectedArray.length === 2) {
+                setTimeout(compare, 1000);
+            //return out of flip function if more than 2 cards are clicked
+            } else {
+                return;
+            }
         }
     }
 
@@ -85,21 +91,17 @@ document.addEventListener('DOMContentLoaded', () => {
         //console.log('this is secondGuess', secondGuess);
         //console.log('this is firstCard', firstCard);
         //console.log('this is secondCard', secondCard);
-        //Condition if image name attributes are the same
+
+        //Condition determine match by comparing name atribute of images
         if (firstGuess.getAttribute('name') === secondGuess.getAttribute('name')) {
             //clear cards from the board and reset selectedArray 
+            cardCounter = 0;
             firstCard.classList.add('matchedcard');
             secondCard.classList.add('matchedcard');
             selectedArray = [];
-            //Condition if card-id attribute is the same 
-        } else if (firstGuess.getAttribute('card-id') === secondGuess.getAttribute('card-id')){
-            //remove second input from array 
-            selectedArray.splice(1);
-        } else if (selectedArray.length > 2) {
-            selectedArray.splice(1);
-            return;
         } else {
             //return cards to original state and reset selectedArray
+            cardCounter = 0;
             firstCard.classList.remove('flipover');
             secondCard.classList.remove('flipover');
             selectedArray = [];

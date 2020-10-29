@@ -109,10 +109,10 @@ document.addEventListener('DOMContentLoaded', () => {
             selectedArray = [];
         }
         if (cardsCleared.length === 12) {
-            alert('You did it! Refresh your browser to play again')
+            alert('You did it! Refresh your browser to play again');
         }
     }
 
-    drawCards()
-})
+    drawCards();
+});
 

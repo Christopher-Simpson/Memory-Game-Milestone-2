@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const game = document.querySelector('#game');
     const cardArray = cardObj.concat(cardObj);
     var selectedArray = [];
+    var cardsCleared = [];
     var cardCounter = 0;
 
     //randomize card display(Not my code)
@@ -94,10 +95,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         //Condition determine match by comparing name atribute of images
         if (firstGuess.getAttribute('name') === secondGuess.getAttribute('name')) {
-            //clear cards from the board and reset selectedArray 
+            //clear cards from the board, push them into cardsCleared and reset selectedArray 
             cardCounter = 0;
             firstCard.classList.add('matchedcard');
             secondCard.classList.add('matchedcard');
+            cardsCleared.push(firstCard, secondCard);
             selectedArray = [];
         } else {
             //return cards to original state and reset selectedArray
@@ -106,11 +108,10 @@ document.addEventListener('DOMContentLoaded', () => {
             secondCard.classList.remove('flipover');
             selectedArray = [];
         }
+        if (cardsCleared.length === 12) {
+            alert('You did it! Refresh your browser to play again')
+        }
     }
-
-    
-
-    
 
     drawCards()
 })

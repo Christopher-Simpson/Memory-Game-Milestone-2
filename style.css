@@ -1,20 +1,48 @@
-/*--Game Layout__*/
+/*HTML Styles*/
+body {
+    height: 100vh;
+    max-width: 100vh;
+    margin: 0 auto !important;
+    float: none !important;
+    font-family: 'Bungee Shade', sans-serif;
+    text-align: center;
+    color: #282a29;
+    background-image: url(assets/images/stadium.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+}
+
+h1 {
+    font-size: 3.5em;
+}
+
+p {
+    font-family: 'Roboto', sans-serif;
+}
+
+/*Game Layout*/
 #container {
     height: 650px;
     width: 500px;
-    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    padding: 200px;
+    padding-left: 250px;
+    padding-top: 0px;
 }
-
 #game {
     max-width: 500px;
     margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
-    border: 1px solid blue;
 }
 
-/*--Card Styles--*/
+/*Card Styles*/
 .card,
 .back,
 .front {
@@ -51,15 +79,10 @@
     transition: transform 50ms ease-in-out;
 }
 
-/*--card flip --*/
+/*card flip*/
 
 .flipover {
     transform: rotateY(180deg);
-    backface-visibility: hidden;
-}
-
-.flipback {
-    transform: rotateY(-180deg);
     backface-visibility: hidden;
 }
 
